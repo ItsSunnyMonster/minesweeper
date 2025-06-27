@@ -25,6 +25,7 @@ fn start_game(mut next_state: ResMut<NextState<GameState>>, mut commands: Comman
     // * Nothing was rendered until I realised I forgot to spawn a camera.
     commands.spawn((
         Camera2d,
+        Transform::from_xyz(0.0, 0.0, 0.0),
         // Projection::Orthographic(OrthographicProjection {
         //     scaling_mode: ScalingMode::FixedHorizontal {
         //         viewport_width: consts::WINDOW_WIDTH,
@@ -70,6 +71,7 @@ fn setup_game(
         (grid_cell_size * grid_width as f32 + gap_size * (grid_width - 1) as f32) * 0.5;
     let half_grid_height_in_pixels =
         (grid_cell_size * grid_height as f32 + gap_size * (grid_height - 1) as f32) * 0.5;
+    let half_grid_cell_size = grid_cell_size * 0.5;
 
     for x in 0..grid_width {
         for y in 0..grid_height {
@@ -79,9 +81,13 @@ fn setup_game(
                     Vec2::splat(grid_cell_size), // * Why is it called splat??
                 ),
                 Transform::from_xyz(
-                    -half_grid_width_in_pixels + (gap_size + grid_cell_size) * x as f32,
-                    -half_grid_height_in_pixels + (gap_size + grid_cell_size) * y as f32,
-                    1.0,
+                    -half_grid_width_in_pixels
+                        + half_grid_cell_size
+                        + (gap_size + grid_cell_size) * x as f32,
+                    -half_grid_height_in_pixels
+                        + half_grid_cell_size
+                        + (gap_size + grid_cell_size) * y as f32,
+                    0.0,
                 ),
             ));
         }
@@ -92,7 +98,7 @@ fn setup_game(
             Color::srgb(0.0, 1.0, 0.0),
             Vec2::splat(grid_cell_size), // * Why is it called splat??
         ),
-        Transform::from_xyz(0.0, 0.0, 1.0),
+        Transform::from_xyz(0.0, 0.0, 0.0),
     ));
 }
 
