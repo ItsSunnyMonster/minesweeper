@@ -1,3 +1,13 @@
-pub fn hello() -> String {
-    "Hello, world!".to_string()
+use bevy::prelude::*;
+
+pub struct GamePlugin;
+
+impl Plugin for GamePlugin {
+    fn build(&self, app: &mut App) {
+        app.add_systems(Startup, hello);
+    }
+}
+
+fn hello() {
+    info!("Hello World!");
 }
