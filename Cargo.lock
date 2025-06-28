@@ -1489,6 +1489,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "catppuccin"
+version = "2.5.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d52356592c50dd7c1bb3a91e152c57719572bd94c9a31363c8cd36f81640ac7d"
+dependencies = [
+ "itertools 0.14.0",
+ "prettyplease",
+ "proc-macro2",
+ "quote",
+ "serde",
+ "serde_json",
+ "syn",
+]
+
+[[package]]
 name = "cc"
 version = "1.2.27"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2700,6 +2715,7 @@ name = "minesweeper"
 version = "0.1.0"
 dependencies = [
  "bevy",
+ "catppuccin",
 ]
 
 [[package]]

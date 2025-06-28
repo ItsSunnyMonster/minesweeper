@@ -1,6 +1,9 @@
+pub mod theme;
 // TODO: Add catppuccin palette as dependency
 
 use bevy::{prelude::*, window::PrimaryWindow};
+
+use crate::theme::ColorTheme;
 
 mod consts;
 
@@ -35,6 +38,9 @@ fn start_game(mut next_state: ResMut<NextState<GameState>>, mut commands: Comman
     ));
 
     // Temporary Setup
+    let color_theme: ColorTheme = catppuccin::PALETTE.mocha.colors.into();
+    commands.insert_resource(ClearColor(color_theme.background));
+    commands.insert_resource(color_theme);
     commands.insert_resource(GameConfig::default());
     next_state.set(GameState::Game);
 }
@@ -42,6 +48,7 @@ fn start_game(mut next_state: ResMut<NextState<GameState>>, mut commands: Comman
 fn setup_game(
     mut commands: Commands,
     config: Res<GameConfig>,
+    color_theme: Res<ColorTheme>,
     query: Query<&Window, With<PrimaryWindow>>,
 ) {
     info!(
@@ -77,7 +84,7 @@ fn setup_game(
         for y in 0..grid_height {
             commands.spawn((
                 Sprite::from_color(
-                    Color::srgb(0.9529411765, 0.5450980392, 0.6588235294),
+                    color_theme.closed_tile,
                     Vec2::splat(grid_cell_size), // * Why is it called splat??
                 ),
                 Transform::from_xyz(
@@ -92,14 +99,6 @@ fn setup_game(
             ));
         }
     }
-
-    commands.spawn((
-        Sprite::from_color(
-            Color::srgb(0.0, 1.0, 0.0),
-            Vec2::splat(grid_cell_size), // * Why is it called splat??
-        ),
-        Transform::from_xyz(0.0, 0.0, 0.0),
-    ));
 }
 
 #[derive(Resource)]
