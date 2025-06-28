@@ -1,5 +1,4 @@
 pub mod theme;
-// TODO: Add catppuccin palette as dependency
 
 use bevy::{prelude::*, window::PrimaryWindow};
 
